@@ -42,6 +42,8 @@ class Camion(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # rutas = Lista de rutas del camion 
     # choferes = Lista de Choferes asociados al camion
+    def __str__(self):
+        return f"{self.nombre} - {self.tipo}"
     
 class Ruta(models.Model):
     camion = models.ForeignKey(Camion, related_name="rutas", on_delete=models.CASCADE)

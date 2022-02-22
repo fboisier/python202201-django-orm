@@ -81,9 +81,15 @@ def ruta_add(request):
 def choferes(request):
 
     if request.method == "GET":
+        print(request.GET)
+
+        data =  Chofer.objects.all()
+
+        if 'nombre' in request.GET:
+            data = data.filter(nombre__contains=request.GET['nombre'])
 
         contexto = {
-            'choferes': Chofer.objects.all().order_by("-updated_at"),
+            'choferes': data.order_by("-updated_at"),
         }
 
         return render(request, 'app/choferes.html', contexto)

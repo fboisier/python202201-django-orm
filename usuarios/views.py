@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from usuarios.models import Usuario
-
+from django.contrib import messages
 
 # Create your views here.
 def list_usuarios(request):
@@ -10,6 +10,8 @@ def list_usuarios(request):
     contexto = {
         'usuarios': Usuario.objects.all(),
     }
+
+    Usuario.objects.saludar("FRANCISCO")
 
     return render(request, 'usuarios/lista.html',contexto)
 
@@ -21,15 +23,28 @@ def add_usuarios(request):
     if request.method == "POST":
         print(request.POST)
 
-        Usuario.objects.create(
-            nombre = request.POST['nombre'],
-            apellido = request.POST['apellido'],
-            username = request.POST['username'],
-            email = request.POST['email'],
-            password = request.POST['password'],
-        )
-    
-    return redirect(reverse('usuarios:listado'))
+        error = Usuario.objects.basic_validator(request.POST)
+
+        if len(error)>0:
+
+            request.session['nombre'] = request.POST['nombre']
+
+            for valor in error.values():
+                messages.error(request, valor)
+            
+            return render(request, 'usuarios/formulario.html') 
+
+        else:
+            Usuario.objects.create(
+                nombre = request.POST['nombre'],
+                apellido = request.POST['apellido'],
+                username = request.POST['username'],
+                email = request.POST['email'],
+                password = request.POST['password'],
+            )
+
+            messages.success(request,"Usuario agregado exitosamente!")
+            return redirect(reverse('usuarios:listado'))
 
 
 def edit_usuarios(request, id):

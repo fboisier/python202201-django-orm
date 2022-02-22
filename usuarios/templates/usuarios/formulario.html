@@ -12,6 +12,16 @@
 
         <div class="col-6">
 
+            {% if errores %}
+                <div class="alert alert-danger">
+                    <ol>
+                        {% for item in errores %}
+                            <li> {{item}} </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            {% endif %}
+
             <form action="" method="post">
                 {% csrf_token %}
 
@@ -20,7 +30,7 @@
                         <label for="nombre" class="col-form-label">Nombre</label>
                     </div>
                     <div class="col-8">
-                        <input type="text" id="nombre" class="form-control" name="nombre">
+                        <input type="text" id="nombre" class="form-control" name="nombre" minlength="5" required value="{{request.session.nombre}}">
                     </div>
                 </div>
                 <div class="row g-4 mt-1 align-items-center">
