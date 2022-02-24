@@ -17,10 +17,13 @@ from django.urls import include
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from acceso.utils.decoradores import login_requerido
+from decorator_include import decorator_include
 
 urlpatterns = [
-    path('', include('app.urls')),
-    path('usuarios/', include('usuarios.urls')),
-    path('medicos/', include('medicos.urls')),
+    path('', decorator_include(login_requerido,include('app.urls'))),
+    path('usuarios/', decorator_include(login_requerido, include('usuarios.urls'))),
+    path('medicos/', decorator_include(login_requerido,include('medicos.urls'))),
+    path('acceso/', include('acceso.urls')),
     path('admin/', admin.site.urls),
 ]

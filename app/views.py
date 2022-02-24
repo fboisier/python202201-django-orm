@@ -1,8 +1,12 @@
 import re
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from acceso.utils.decoradores import login_requerido
 from app.models import Camion, Chofer, Ruta
+from django.contrib import messages
 
 # Create your views here.
+@login_requerido
 def index(request):
 
     if request.method == "GET":
@@ -13,6 +17,7 @@ def index(request):
         # PROCESAR EN BASE DE DATOS
         return redirect("/")
 
+
 def camion(request, id):
 
     if request.method == "GET":
@@ -22,7 +27,6 @@ def camion(request, id):
         }
 
         return render(request, 'app/camion.html', contexto)
-
 
 def camiones(request):
 
