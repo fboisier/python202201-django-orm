@@ -3,11 +3,14 @@ asttokens==2.0.5
 autopep8==1.6.0
 backcall==0.2.0
 backports.zoneinfo==0.2.1
+bcrypt==3.2.0
 black==22.1.0
+cffi==1.15.0
 click==8.0.3
 colorama==0.4.4
 decorator==5.1.1
 Django==4.0.2
+django-decorator-include==3.0
 executing==0.8.2
 ipython==8.0.1
 jedi==0.18.1
@@ -21,6 +24,7 @@ prompt-toolkit==3.0.26
 psycopg2==2.9.3
 pure-eval==0.2.2
 pycodestyle==2.8.0
+pycparser==2.21
 Pygments==2.11.2
 PyMySQL==1.0.2
 six==1.16.0
