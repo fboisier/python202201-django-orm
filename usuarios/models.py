@@ -54,3 +54,6 @@ class Usuario(models.Model):
     class Meta:
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
+
+class Algo(Usuario):
+    nombre_algo = models.CharField(max_length=50)
